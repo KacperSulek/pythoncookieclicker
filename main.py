@@ -60,9 +60,9 @@ def makeItems(textList, pngList, basePriceList, cpsList):
 
 def getCookie():
     global money
-    money += 200
+    money += 1
 
-items = makeItems(["Half Cookie", "Vanille Cookie"], ["halfcookie.png", "vcookie.png"], [50, 150], [0.5, 2])
+items = makeItems(["Half Cookie", "Vanille Cookie"], ["halfcookie.png", "vcookie.png"], [100, 1000], [0.01, 0.5])
 
 def calculateCps():
     global CPS
