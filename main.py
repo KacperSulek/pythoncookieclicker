@@ -132,7 +132,7 @@ while True:
             if pygame.mouse.get_pressed()[0]:
                 item.click()
                 break
-            
+
     calculateCps()
     updateCookies()
 
