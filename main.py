@@ -24,7 +24,7 @@ class Item:
             self.count += 1
             money -= price
 
-def save_game():
+def saveGame():
     data = {
         'money': money,
         'items': [{'text': item.text, 'count': item.count} for item in items]
@@ -32,16 +32,16 @@ def save_game():
     with open('savegame.json', 'w') as f:
         json.dump(data, f)
 
-def load_game():
+def loadGame():
     global money, items
     try:
         with open('savegame.json', 'r') as f:
             data = json.load(f)
             money = data['money']
-            for item_data in data['items']:
+            for itemData in data['items']:
                 for item in items:
-                    if item.text == item_data['text']:
-                        item.count = item_data['count']
+                    if item.text == itemData['text']:
+                        item.count = itemData['count']
     except FileNotFoundError:
         pass
 
@@ -106,7 +106,7 @@ def showMoney(choice, color, font, size):
 
     screen.blit(moneySurface, moneyRect)
 
-load_game()
+loadGame()
 
 while True:
     screen.fill(blue)
@@ -138,7 +138,7 @@ while True:
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            save_game()
+            saveGame()
             pygame.quit()
             sys.exit()
         if(event.type == pygame.MOUSEBUTTONDOWN):
