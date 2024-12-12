@@ -1,5 +1,6 @@
 import pygame
 import sys
+import json
 
 class Item:
     def __init__(self, text, png, basePrice, baseCpsEach):
@@ -11,7 +12,7 @@ class Item:
         self.cpsEach = baseCpsEach
 
     def total_cps(self):
-        return self.cpsEach * self.count
+        return (self.cpsEach/10) * self.count
 
     def price(self):
         return self.basePrice * 1.15**self.count
@@ -22,7 +23,27 @@ class Item:
         if money >= price:
             self.count += 1
             money -= price
-    
+
+def save_game():
+    data = {
+        'money': money,
+        'items': [{'text': item.text, 'count': item.count} for item in items]
+    }
+    with open('savegame.json', 'w') as f:
+        json.dump(data, f)
+
+def load_game():
+    global money, items
+    try:
+        with open('savegame.json', 'r') as f:
+            data = json.load(f)
+            money = data['money']
+            for item_data in data['items']:
+                for item in items:
+                    if item.text == item_data['text']:
+                        item.count = item_data['count']
+    except FileNotFoundError:
+        pass
 
 screenX = 720
 screenY = 480
@@ -34,6 +55,7 @@ blue = pygame.Color(0, 200, 200)
 pygame.init()
 
 screen = pygame.display.set_mode((screenX, screenY))
+pygame.display.set_caption('Cookie Clicker')
 
 fps = pygame.time.Clock()
 
@@ -62,7 +84,7 @@ def getCookie():
     global money
     money += 1
 
-items = makeItems(["Half Cookie", "Vanille Cookie"], ["halfcookie.png", "vcookie.png"], [100, 1000], [0.01, 0.5])
+items = makeItems(["Half Cookie", "Vanille Cookie"], ["halfcookie.png", "vcookie.png"], [100, 1000], [0.1, 1])
 
 def calculateCps():
     global CPS
@@ -78,11 +100,13 @@ def updateCookies():
 def showMoney(choice, color, font, size):
     moneyFont = pygame.font.SysFont(font, size)
 
-    moneySurface = moneyFont.render("Money : " + str(int(money)) + " | " + "Cps: " + str(CPS), True, color)
+    moneySurface = moneyFont.render("Money : " + str(int(money)) + " | " + "Cps: " + str(CPS*10), True, color)
 
     moneyRect = moneySurface.get_rect(center=(screenX/2, (screenY/2)-((screenY/2)/2)))
 
     screen.blit(moneySurface, moneyRect)
+
+load_game()
 
 while True:
     screen.fill(blue)
@@ -114,6 +138,7 @@ while True:
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
+            save_game()
             pygame.quit()
             sys.exit()
         if(event.type == pygame.MOUSEBUTTONDOWN):
@@ -122,7 +147,6 @@ while True:
             if mouseButton == 1:
                 if cookieRect.collidepoint(mousePos):
                     getCookie()
-
 
     showMoney(1, white, "time new roman", 20)
 
