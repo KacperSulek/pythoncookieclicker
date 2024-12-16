@@ -1,0 +1,44 @@
+[
+    {
+        "text": "Half Cookie",
+        "png": "halfcookie.png",
+        "basePrice": 10,
+        "baseCpsEach": 0.1
+    },
+    {
+        "text": "Vanille Cookie",
+        "png": "vcookie.png",
+        "basePrice": 100,
+        "baseCpsEach": 1
+    },
+    {
+        "text": "Item_3",
+        "png": "vcookie.png",
+        "basePrice": 500,
+        "baseCpsEach": 2.5
+    },
+    {
+        "text": "Item_4",
+        "png": "vcookie.png",
+        "basePrice": 1000,
+        "baseCpsEach": 5
+    },
+    {
+        "text": "Item_5",
+        "png": "vcookie.png",
+        "basePrice": 2000,
+        "baseCpsEach": 10
+    },
+    {
+        "text": "Item_6",
+        "png": "vcookie.png",
+        "basePrice": 5000,
+        "baseCpsEach": 25
+    },
+    {
+        "text": "Item_7",
+        "png": "vcookie.png",
+        "basePrice":10000,
+        "baseCpsEach": 50
+    }
+]
